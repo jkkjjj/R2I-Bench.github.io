@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Evaluating Reasoning Capabilities of Image Generation">
+  <meta name="keywords" content="R2I-Bench, Math Vista">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> R2I-Bench: Evaluating Reasoning Capabilities of Image Generation</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script> -->
+  <!-- <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+/Users/panlu/Library/Mobile Documents/com~apple~CloudDocs/ImageMath/visual-mathqa-server/data_final/images
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script> -->
+
+  <link rel="icon" href="./static/images/r2i-bench_icon.png">
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./static/css/leaderboard.css">
+
+  <!-- <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator_bulma.min.css" rel="stylesheet">
+  <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script> -->
+  <script type="text/javascript" src="static/js/sort-table.js" defer></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/explorer-index.js"></script>
+  <script src="./static/js/question_card.js"></script>
+
+  <script src="./static/js/leaderboard_testmini.js"></script>  
+  <script src="./data/results/output_folders.js" defer></script>
+  <script src="./data/results/model_scores.js" defer></script>
+
+  <script src="./visualizer/data/data_public.js" defer></script>
+</head>
+<body>
+
+
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title is-bold">
+            <img src="static/images/r2i-bench_icon.png" style="width:1em;vertical-align: middle" alt="Logo"/>
+            <span class="benchmark" style="vertical-align: middle">R2I-Bench</span>
+            </h1>
+          <h2 class="subtitle is-3 publication-subtitle">
+            Benchmarking Reasoning-Driven Text-to-Image Generation
+            <!-- <br> -->
+            <!-- with GPT-4V, Bard, and Other Large Multimodal Models -->
+          </h2>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://lupantech.github.io/">Kaijie Chen</a>,</span>
+            <span class="author-block">
+              <a href="https://sites.google.com/view/hbansal">Zihao Lin</a><sup style="color:#808080;">*</sup>,</span>
+            <span class="author-block">
+              <a href="https://tonyxia2001.github.io/">Zhiyang Xu</a><sup style="color:#808080;">*</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://liujch1998.github.io/">Ying Shen</a><sup style="color:#808080">*</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://chunyuan.li/">Yuguang Yao</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://homes.cs.washington.edu/~hannaneh/">Joy Rimchala</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://sites.google.com/site/hcheng2site/Home">Jiaxin Zhang,
+            </span>
+            <span class="author-block">
+              <a href="http://web.cs.ucla.edu/~kwchang/">Lifu Huang,
+            </span>
+
+
+          </div>
+
+          <!-- <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup style="color:#6fbf73;">1</sup>University of California, Los Angeles,</span><br>
+            <span class="author-block"><sup style="color:#ed4b82">2</sup>University of Washington,</span>
+            <span class="author-block"><sup style="color:#ffac33">3</sup>Microsoft Research</span><br>
+            <span class="paper-block"><b style="color:#f41c1c">ICLR 2024 Oral</b> (85 in 7304, 1.2%)</span>
+          </div> -->
+        
+          <!-- <section> -->
+            <!-- <div class="section" id="org-banners" style="display:fle">
+              <a href="https://www.ucla.edu/" target="_blank" rel="external">
+                  <img class="center-block org-banner" src="static/images/ucla.png" style="height:3em">
+              </a>
+              <a href="https://www.washington.edu/" target="blank" class="ext-link">
+                  <img class="center-block org-banner" src="static/images/uw.png" style="height:3em">
+              </a>
+              <a href="https://www.microsoft.com/en-us/research/" target="_blank" rel="external">
+                  <img class="center-block org-banner" src="static/images/microsoft.png" style="height:3em">
+              </a>
+            </div> -->
+          <!-- </section> -->
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+
+              
+              <span class="link-block">
+              
+                <a href="https://arxiv.org/pdf/2310.02255.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+
+
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2310.02255"
+                   class="external-link button is-normal is-rounded is-dark">
+                <!-- <a href="https://lupantech.github.io/papers/arxiv23_mathvista.pdf"
+                   class="external-link button is-normal is-rounded is-dark"> -->
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/lupantech/R2I-Bench"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/AI4Math/R2I-Bench"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <!-- <i class="far fa-images"></i> -->
+                      <p style="font-size:18px">🤗</p>
+                      <!-- 🔗 -->
+                  </span>
+                  <span>Dataset</span>
+                </a>
+              </span>
+              <!-- Visualization Link. -->
+              <!-- <span class="link-block">
+                <a href="https://mathvista.github.io/#visualization"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <p style="font-size:18px">🔮</p>
+                  </span>
+                  <span>Visualize</span>
+                </a>
+              </span> -->
+              <!-- Leaderboard Link. -->
+              <span class="link-block">
+                <a href="https://mathvista.github.io/#leaderboard"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <p style="font-size:18px">🏆</p>
+                  </span>
+                  <span>Leaderboard</span>
+                </a>
+              </span>
+              <!-- Twitter Link. -->
+              <span class="link-block">
+                <a href="https://twitter.com/lupantech/status/1717313355780964608"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <!-- <i class="far fa-images"></i> -->
+                      <!-- 💻🔗 -->
+                      <p style="font-size:18px">🌐</p>
+                  </span>
+                  <span>Twitter</span>
+                </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- <section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered">
+      <img src="static/images/tease_scores_gpt4v.png" alt="geometric reasoning" width="99%"/>
+      <p> Accuracy scores of one leading LLM (i.e., PoT GPT-4), four primary LMMs, random chance, and human performance our proposed 
+      <img src="static/images/r2i-bench_icon.png" style="width:1.0em;vertical-align: middle" alt="Logo"/>
+      <span class="benchmark">R2I-Bench</span>
+      across mathematical reasoning and visual context types. PoT refers to program-of-thought prompting, and PoT GPT-4 is a textual LLM augmented with the caption and OCR text. GPT-4V is manually evaluated via the playground chatbot.
+      </p>
+    </div>
+  </div>
+</section> -->
+
+
+<section class="section">
+  <div class="container" style="margin-top: -150px; margin-bottom: -100px;">
+    <div class="columns is-centered m-6">
+      <div class="column is-full has-text-centered content">
+        <div class="content has-text-centered">
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/main.png" alt="geometric reasoning" width="91%"/>
+              <p> We introduce 
+              <img src="static/images/r2i-bench_icon.png" style="width:1.0em;vertical-align: middle" alt="Logo"/>
+              <span class="benchmark">R2I-Bench</span>
+              , a comprehensive benchmark designed to assess the reasoning capabilities of text-to-image (T2I) generation models. It encompasses <b>7</b> primary reasoning categories, which are further subdivided into <b>32</b> fine-grained subcategories.</b>
+              </p>
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+</section>
+
+
+<section class="section">
+  <div class="container" style="margin-bottom: 2vh;">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            <p>Reasoning is a fundamental capability often required in real-world text-to-image (T2I) generation, e.g., generating <i>a bitten apple that has been left in the air for more than a week</i> necessitates understanding temporal decay and commonsense concepts. While recent T2I models have made impressive progress in producing photorealistic images, their reasoning capability remains underdeveloped and insufficiently evaluated. 
+            </p><p>To bridge this gap, we introduce <img src="static/images/r2i-bench_icon.png" style="width:1.0em;vertical-align: middle" alt="Logo"/><span class="benchmark">R2I-Bench</span>, a comprehensive benchmark specifically designed to rigorously assess reasoning-driven T2I generation. 
+            <img src="static/images/r2i-bench_icon.png" style="width:1.0em;vertical-align: middle" alt="Logo"/><span class="benchmark">R2I-Bench</span> comprises <b>3,068</b> meticulously curated data instances, spanning <b>7</b> core reasoning categories, including commonsense, mathematical, logical, compositional, numerical, causal, and concept mixing. To facilitate fine-grained evaluation, we design <img src="static/images/r2i-bench_icon.png" style="width:1.0em;vertical-align: middle" alt="Logo"/><span class="benchmark">R2I-Score</span>, a QA-style metric based on instance-specific, reasoning-oriented evaluation questions that assess three critical dimensions: <i>text-image alignment</i>, <i>reasoning accuracy</i>, and <i>image quality</i>. 
+          </p>Extensive experiments with 16 representative T2I models, including a strong pipeline-based framework that decouples reasoning and generation using the state-of-the-art language and image generation models, demonstrate consistently limited reasoning performance, highlighting the need for more robust, reasoning-aware architectures in the next generation of T2I systems. 
+          </p>
+
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+</div>
+</section>
+
+<section class="section">
+  <div class="container">
+    
+    <div class="columns is-centered">
+      <div class="column is-full has-text-centered content">
+        <h2 class="title is-3" id="leaderboard">Leaderboard on <img src="static/images/r2i-bench_icon.png" style="width:1.0em;vertical-align: middle" alt="Logo"/> <span class="benchmark">R2I-Bench</span></h2>
+        <div class="content">
+          <!-- <p class="mt-3">Accuracy scores on the <b>testmini</b> subset (1,000 examples) of <img src="static/images/r2i-bench_icon.png" style="width:1.0em;vertical-align: middle" alt="Logo"/>
+            <span class="benchmark">R2I-Bench</span>.
+          </p> -->
+
+          <div id="testmini_leaderboard"></div>
+
+ 
+
+        </div>
+
+<!-- 
+          <p>🚨 To submit your results to the leaderboard, please send to <a href="mailto:lupantech@gmail.com">this email</a> with your result json files.</p>
+          <p>🚨 For more submission details, please refer to <a href="https://github.com/lupantech/R2I-Bench?tab=readme-ov-file#-leaderboard-">this link</a> and <a href="https://github.com/lupantech/R2I-Bench?tab=readme-ov-file#-evaluations-on-mathvista">this link</a>.
+           -->
+          
+          </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DATASET SECTION -->
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+    <!-- <h1 class="title is-1 mathvista"><img src="static/images/r2i-bench_icon.png" style="width:1.0em;vertical-align: middle" alt="Logo"/>R2I-Bench Dataset</h1> -->
+  <h1 class="title is-1 mathvista">
+    <img src="static/images/r2i-bench_icon.png" style="width:1em;vertical-align: middle" alt="Logo"/>
+    <span class="benchmark" style="vertical-align: middle">R2I-Bench</span>
+  </h1>
+  </div>
+</section>
+
+<!-- <section class="section">
+  <div class="container" style="margin-bottom: 2vh;">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Introduction</h2>
+        <div class="content has-text-justified">
+          <p> -->
+            
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <!-- <div class="column is-full-width has-text-centered"> -->
+        <div class="column is-four-fifths">
+        <h2 class="title is-3">Overview</h2>
+        <div class="content has-text-justified">
+          <p>
+
+            <img src="static/images/r2i-bench_icon.png" style="width:1.0em;vertical-align: middle" alt="Logo"/><span class="benchmark">R2I-Bench</span> a comprehensive benchmark specifically designed to rigorously assess reasoning-driven T2I generation. 
+            <img src="static/images/r2i-bench_icon.png" style="width:1.0em;vertical-align: middle" alt="Logo"/><span class="benchmark">R2I-Bench</span> comprises <b>3,068</b> meticulously curated data instances, spanning <b>7</b> core reasoning categories, including commonsense, mathematical, logical, compositional, numerical, causal, and concept mixing. To facilitate fine-grained evaluation, we design <img src="static/images/r2i-bench_icon.png" style="width:1.0em;vertical-align: middle" alt="Logo"/><span class="benchmark">R2I-Score</span>, a QA-style metric based on instance-specific, reasoning-oriented evaluation questions that assess three critical dimensions: <i>text-image alignment</i>, <i>reasoning accuracy</i>, and <i>image quality</i>. 
+
+          </p>
+
+          <div class="columns is-centered">
+            <div class="column" style="margin-right: -0rem;">
+              <div class="content has-text-centered">
+                <img src="static/images/main_statistics.png" alt="data-overview" style="max-width: 90%;"/>
+                <p> 
+                  Key statistics of <img src="static/images/r2i-bench_icon.png" style="width:1.0em;vertical-align: middle" alt="Logo"/>
+                  <span class="benchmark">R2I-Bench</span>.<br/>
+                </p> 
+              </div>
+            </div>
+            <div class="column">
+              <div class="content has-text-centered">
+                <img src="static/images/main_sunburnt.png" alt="data-composition" style="max-width: 85%;"/>
+                <p>
+                  Distribution of Diverse Reasoning Categories in <img src="static/images/r2i-bench_icon.png" style="width:1.0em;vertical-align: middle" alt="Logo"/>
+                    <span class="benchmark">R2I-Bench</span>.<br/>
+                    
+                    <b>Caus.</b>: Causal,
+                    <b>Con. Mix.</b>: Concept Mixing,
+                    <b>Comp.</b>: Compositional,<br/>
+                    <b>Num.</b>: Numerical,
+      
+                    <b>Comm.</b>: Commonsense,
+                    <b>Math.</b>: Mathematical.
+                </p>
+              </div>
+            </div>
+          </div>
+      
+
+            <div class="box m-5">
+              <div class="content has-text-centered">
+                <img src="static/images/evaluation_data_instance.png" alt="algebraic reasoning" width="90%"/>
+                <p> Example Illustration of <img src="static/images/r2i-bench_icon.png" style="width:1.0em;vertical-align: middle" alt="Logo"/><span class="benchmark">R2I-Bench</span> and <img src="static/images/r2i-bench_icon.png" style="width:1.0em;vertical-align: middle" alt="Logo"/><span class="benchmark">R2I-Score</span> </p>
+              </div>
+            </div>
+
+            <div class="box m-5">
+              <div class="content has-text-centered">
+                <img src="static/images/main_data_pipeline.png" alt="arithmetic reasoning" width="100%"/>
+                <p> Data Curation Pipeline of <img src="static/images/r2i-bench_icon.png" style="width:1.0em;vertical-align: middle" alt="Logo"/>
+                  <span class="benchmark">R2I-Bench</span>.
+              </div>
+            </div>
+          
+            <div class="box m-5">
+              <div class="content has-text-centered">
+                <img src="static/images/main_llm_writing_failure.png" alt="algebraic reasoning" width="80%"/>
+                <p> Failure Cases of the Pipeline-based Framework on Compositional, Numerical, Mathematical Reasoning.</p>
+              </div>
+            </div>
+
+
+
+
+
+
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+</section>
+
+<!-- RESULTS SECTION -->
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+    <h1 class="title is-1 mathvista">Experiment Results</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <div class="columns is-centered m-6">
+      <div class="column is-full has-text-centered content">
+        <h2 class="title is-3">Results on Existing Text-to-Image Models</h2>
+        <!-- <p>One example for each reasoning skill required in <span class="benchmark">R2I-Bench</span></p> -->
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/results-figures/main_radar_chart.png" alt="grade-lv" width="70%"/>
+              <p>Accuracy scores of the top-performing four models from four different model architectures respectively on<img src="static/images/r2i-bench_icon.png" style="width:1.0em;vertical-align: middle" alt="Logo"/>
+                <span class="benchmark">R2I-Bench</span>. </p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/results-figures/main_piechart_error.png" alt="grade-lv" width="60%"/>
+              <p>
+                Distribution of Errors of the top-performing four models from four different model architectures respectively on <img src="static/images/r2i-bench_icon.png" style="width:1.0em;vertical-align: middle" alt="Logo"/>
+                <span class="benchmark">R2I-Bench</span>. 
+              </p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/results-figures/main_polar_chart.png" alt="grade-lv" width="50%"/>
+              <p>Detailed Performance Comparison: Standard T2I Model vs. Pipeline-based Framework</p>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered m-6">
+      <div class="column is-full has-text-centered content">
+        <h2 class="title is-3">Visualization Examples</h2>
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/results-examples/appendix_compositional.png" alt="" width="95%"/>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/results-examples/appendix_numerical.png" alt="" width="95%"/>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/results-examples/appendix_concept_mixing.png" alt="" width="100%"/>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/results-examples/appendix_causal.png" alt="" width="95%"/>
+            </div>
+          </div>
+
+    
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered m-6">
+      <div class="column is-full has-text-centered content">
+        <div id="results-carousel" class="carousel results-carousel">
+
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/results-examples/appendix_mathematical.png" alt="" width="90%"/>
+            </div>
+          </div>
+
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/results-examples/appendix_commonsense.png" alt="" width="90%"/>
+            </div>
+          </div>
+
+
+
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/results-examples/appendix_logical.png" alt="" width="90%"/>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+</section>
+
+
+<!-- @PAN TODO: bibtex -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3 has-text-centered">BibTeX</h2>
+    <pre><code>@inproceedings{lu2024mathvista,
+  author    = {Lu, Pan and Bansal, Hritik and Xia, Tony and Liu, Jiacheng and Li, Chunyuan and Hajishirzi, Hannaneh and Cheng, Hao and Chang, Kai-Wei and Galley, Michel and Gao, Jianfeng},
+  title     = {R2I-Bench: Evaluating Mathematical Reasoning of Foundation Models in Visual Contexts},
+  booktitle={International Conference on Learning Representations (ICLR)},
+  year      = {2024}
+}</code></pre>
+  </div>
+</section>
+
+<!-- <section>
+  <div class="section" id="org-banners" style="display:flex">
+    <a href="https://www.ucla.edu/" target="_blank" rel="external">
+        <img class="center-block org-banner" src="static/images/ucla.png">
+    </a>
+    <a href="https://www.washington.edu/" target="blank" class="ext-link">
+        <img class="center-block org-banner" src="static/images/uw.png">
+    </a>
+    <a href="https://www.microsoft.com/en-us/research/" target="_blank" rel="external">
+        <img class="center-block org-banner" src="static/images/microsoft.png">
+    </a>
+  </div>
+</section> -->
+
+
+<footer class="footer">
+  <!-- <div class="container"> -->
+    <div class="content has-text-centered">
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is website adapted from <a href="https://nerfies.github.io/">Nerfies</a>, licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  <!-- </div> -->
+</footer>
+
+</body>
+</html>
